@@ -18,7 +18,7 @@
 
 * 使用 Chrome Extension
 
-    1. 下載「[yt-emoji-copy-tool.zip](./yt-emoji-copy-tool.zip?raw=1)」並解壓縮
+    1. 下載「[yt-live-chat-emoji-copy-tool.zip](./yt-live-chat-emoji-copy-tool.zip?raw=1)」並解壓縮
 
     1. 前往 [chrome://extensions/](chrome://extensions/)
 
@@ -42,4 +42,4 @@
 
     1. 安裝使用者腳本管理器
 
-    1. 下載或開啟「[yt-emoji-copy-tool.user.js](./yt-emoji-copy-tool.user.js?raw=1)」
+    1. 下載或開啟「[yt-live-chat-emoji-copy-tool.user.js](./yt-live-chat-emoji-copy-tool.user.js?raw=1)」
