@@ -1,6 +1,6 @@
 EN | [正體中文](./README_TW.md) | [简体中文](./README_CN.md)
 
-# YT Video Information Tool
+# YT Live Chat Emoji Copy Tool
 
 Make YouTube™ Live Chat's emoji can be copied.
 
