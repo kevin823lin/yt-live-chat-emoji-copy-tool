@@ -50,7 +50,7 @@
             document.querySelectorAll('[shared-tooltip-text]').forEach(ele => {
                 let alt = ele.alt;
                 let sharedTooltipText = ele.getAttribute('shared-tooltip-text');
-                if (alt !=sharedTooltipText) {
+                if (alt && sharedTooltipText && (alt != sharedTooltipText) && (sharedTooltipText.match(alt))) {
                     ele.alt = sharedTooltipText;
                 }
             });
