@@ -22,41 +22,62 @@
 
     // Your code here...
     window.addEventListener('load', function () {
+        if (!window.location.pathname.match('^/live_chat')) {
+            return;
+        }
+        copy_alt_to_sharedTooltipText(document.querySelector("#chat"));
         setUpObserver();
     });
 
     function setUpObserver() {
         try {
-            if (!window.location.pathname.match('^/live_chat')) {
-                return;
-            }
-            copyAltToSharedTooltipText();
             var observer = new MutationObserver(function (mutations) {
-                copyAltToSharedTooltipText();
+                mutations.forEach(mutation => {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.matches('img.emoji[shared-tooltip-text][alt]')) {
+                            copy_alt_to_sharedTooltipText(node, "self");
+                        }
+                    })
+                })
             });
-            var config = {
-                subtree: true,
-                childList: true
-            };
-            observer.observe(document.querySelector("#chat"), config);
+            observer.observe(document.querySelector("#chat"), {
+                childList: true,
+                subtree: true
+            });
         }
         catch (e) {
             console.error(`setUpObserver: ${e}`);
         }
     }
-    
-    function copy_alt_to_sharedTooltipText() {
+
+    async function copy_alt_to_sharedTooltipText() {
         try {
-            document.querySelectorAll('[shared-tooltip-text]').forEach(ele => {
+            let node;
+            if (arguments[1] && arguments[1] == "self") {
+                node = [arguments[0]];
+            }
+            else {
+                node = arguments[0].querySelectorAll('img.emoji[shared-tooltip-text][alt]');
+            }
+            await wait(500); // wait for YouTube remove and add elements several times
+            node.forEach(ele => {
                 let alt = ele.alt;
                 let sharedTooltipText = ele.getAttribute('shared-tooltip-text');
-                if (alt && sharedTooltipText && (alt != sharedTooltipText) && (sharedTooltipText.match(alt))) {
+                if (document.contains(ele) && alt && sharedTooltipText && (alt != sharedTooltipText) && (sharedTooltipText.match(alt))) {
                     ele.alt = sharedTooltipText;
                 }
             });
         }
         catch (e) {
             console.error(`copy_alt_to_sharedTooltipText: ${e}`);
+        }
+    }
+
+    function wait(ms) {
+        try {
+            return new Promise(r => setTimeout(r, ms));
+        } catch (e) {
+            console.error(`wait: ${e}`);
         }
     }
 })();
