@@ -21,63 +21,61 @@
     'use strict';
 
     // Your code here...
+    var lock = false;
     window.addEventListener('load', function () {
         if (!window.location.pathname.match('^/live_chat')) {
             return;
         }
-        copy_alt_to_sharedTooltipText(document.querySelector("#chat"));
-        setUpObserver();
+
+        document.addEventListener('selectionchange', () => {
+            if (!lock) {
+                console.log('selectionchange', lock);
+                lock = true;
+                setTimeout(() => {lock = false}, 200);
+                let cloneSelectedNode = getCloneSelectedNode();
+                if (!cloneSelectedNode) {
+                    return;
+                }
+                let imgs = cloneSelectedNode.querySelectorAll('img.emoji[shared-tooltip-text][alt]:not([copyable])');
+                imgs.forEach(img => {
+                    if (img.id && document.querySelector(`#${img.id}`)) {
+                        copyAltToSharedTooltipText(document.querySelector(`#${img.id}`))
+                    }
+                });
+            }
+        });
     });
 
-    function setUpObserver() {
+    function getCloneSelectedNode()
+    {
         try {
-            var observer = new MutationObserver(function (mutations) {
-                mutations.forEach(mutation => {
-                    mutation.addedNodes.forEach(node => {
-                        if (node.matches('img.emoji[shared-tooltip-text][alt]')) {
-                            copy_alt_to_sharedTooltipText(node, "self");
-                        }
-                    })
-                })
-            });
-            observer.observe(document.querySelector("#chat"), {
-                childList: true,
-                subtree: true
-            });
+            let selection = window.getSelection();
+            if (!selection.rangeCount) {
+                return;
+            }
+            let range = selection.getRangeAt(0);
+            return range.cloneContents();
         }
         catch (e) {
-            console.error(`setUpObserver: ${e}`);
+            console.error(`getCloneSelectedNode: ${e}`);
         }
     }
 
-    async function copy_alt_to_sharedTooltipText() {
+    function copyAltToSharedTooltipText(ele) {
         try {
-            let node;
-            if (arguments[1] && arguments[1] == "self") {
-                node = [arguments[0]];
-            }
-            else {
-                node = arguments[0].querySelectorAll('img.emoji[shared-tooltip-text][alt]');
-            }
-            await wait(500); // wait for YouTube remove and add elements several times
-            node.forEach(ele => {
-                let alt = ele.alt;
-                let sharedTooltipText = ele.getAttribute('shared-tooltip-text');
-                if (document.contains(ele) && alt && sharedTooltipText && (alt != sharedTooltipText) && (sharedTooltipText.match(alt))) {
-                    ele.alt = sharedTooltipText;
+            // console.log(ele);
+            let alt = ele.alt;
+            let sharedTooltipText = ele.getAttribute('shared-tooltip-text');
+            if (document.contains(ele) && alt && sharedTooltipText && (alt != sharedTooltipText)) {
+                ele.setAttribute('copyable', true);
+                if (sharedTooltipText.match(alt)) {
+                    // console.log(document.contains(ele), alt, sharedTooltipText, (alt != sharedTooltipText), (sharedTooltipText.match(alt)));
+                    ele.setAttribute('alt', sharedTooltipText);
                 }
-            });
+            }
         }
         catch (e) {
-            console.error(`copy_alt_to_sharedTooltipText: ${e}`);
-        }
-    }
-
-    function wait(ms) {
-        try {
-            return new Promise(r => setTimeout(r, ms));
-        } catch (e) {
-            console.error(`wait: ${e}`);
+            console.error(`copyAltToSharedTooltipText: ${e}`);
         }
     }
 })();
