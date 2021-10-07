@@ -4,7 +4,7 @@
 // @name:zh-TW          YT 直播聊天室貼圖複製工具
 // @name:zh-CN          YT 直播聊天室贴图复制工具
 // @namespace           https://github.com/kevin823lin
-// @version             0.1
+// @version             0.2
 // @description         Make YouTube™ Live Chat's emoji can be copied.
 // @description:zh      讓 YouTube™ 直播聊天室的貼圖可以被複製
 // @description:zh-TW   讓 YouTube™ 直播聊天室的貼圖可以被複製
@@ -57,13 +57,11 @@
 
     function copyAltToSharedTooltipText(ele) {
         try {
-            // console.log(ele);
             let alt = ele.alt;
             let sharedTooltipText = ele.getAttribute('shared-tooltip-text');
             if (document.contains(ele) && alt && sharedTooltipText && (alt != sharedTooltipText)) {
                 ele.setAttribute('copyable', true);
                 if (sharedTooltipText.match(alt)) {
-                    // console.log(document.contains(ele), alt, sharedTooltipText, (alt != sharedTooltipText), (sharedTooltipText.match(alt)));
                     ele.setAttribute('alt', sharedTooltipText);
                 }
             }
