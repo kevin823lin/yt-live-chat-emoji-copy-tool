@@ -21,28 +21,22 @@
     'use strict';
 
     // Your code here...
-    var lock = false;
     window.addEventListener('load', function () {
         if (!window.location.pathname.match('^/live_chat')) {
             return;
         }
 
         document.addEventListener('selectionchange', () => {
-            if (!lock) {
-                console.log('selectionchange', lock);
-                lock = true;
-                setTimeout(() => {lock = false}, 200);
-                let cloneSelectedNode = getCloneSelectedNode();
-                if (!cloneSelectedNode) {
-                    return;
-                }
-                let imgs = cloneSelectedNode.querySelectorAll('img.emoji[shared-tooltip-text][alt]:not([copyable])');
-                imgs.forEach(img => {
-                    if (img.id && document.querySelector(`#${img.id}`)) {
-                        copyAltToSharedTooltipText(document.querySelector(`#${img.id}`))
-                    }
-                });
+            let cloneSelectedNode = getCloneSelectedNode();
+            if (!cloneSelectedNode) {
+                return;
             }
+            let imgs = cloneSelectedNode.querySelectorAll('img.emoji[shared-tooltip-text][alt]:not([copyable])');
+            imgs.forEach(img => {
+                if (img.id && document.querySelector(`#${img.id}`)) {
+                    copyAltToSharedTooltipText(document.querySelector(`#${img.id}`))
+                }
+            });
         });
     });
 
