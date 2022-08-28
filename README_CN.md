@@ -42,5 +42,5 @@
 
     1. 安装使用者脚本管理器
 
-    1. 下载或开启「[yt-live-chat-emoji-copy-tool.user.js](./yt-live-chat-emoji-copy-tool.user.js?raw=1)」
+    1. 下载或开启「[yt-live-chat-emoji-copy-tool.user.js](https://greasyfork.org/zh-CN/scripts/447599)」
 
