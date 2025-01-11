@@ -24,12 +24,17 @@ jobs:
         run: |
           # 建立一個臨時目錄
           mkdir -p release_files
+          # 複製 manifest.json
+          cp manifest.json release_files/
           # 複製 _locales 資料夾
           cp -r _locales release_files/
           # 讀取 manifest.json，提取 content_scripts 並打包
           scripts=$(jq -r '.content_scripts[].js[]' manifest.json)
           for script in $scripts; do
-            cp $script release_files/
+            # 複製檔案，保留原來的目錄結構
+            script_dir=$(dirname "$script")
+            mkdir -p "release_files/$script_dir"
+            cp "$script" "release_files/$script"
           done
           # 打包所有檔案為 ZIP
           cd release_files
