@@ -16,9 +16,19 @@
 
 ## 如何使用
 
+* 使用 UserScript（[GreasyFork 教学](https://greasyfork.org/zh-CN)）
+
+    1. 安装使用者脚本管理器
+
+    1. 下载使用者脚本：
+
+        * [Greasy Fork](https://greasyfork.org/zh-CN/scripts/447599)
+
+        * [Release](https://github.com/kevin823lin/yt-live-chat-emoji-copy-tool/releases/latest/download/yt-live-chat-emoji-copy-tool.user.js)
+
 * 使用 Chrome Extension
 
-    1. 下载「[yt-live-chat-emoji-copy-tool.zip](./yt-live-chat-emoji-copy-tool.zip?raw=1)」并解压缩
+    1. 下载「[yt-live-chat-emoji-copy-tool.zip](https://github.com/kevin823lin/yt-live-chat-emoji-copy-tool/releases/latest/download/yt-live-chat-emoji-copy-tool.zip)」并解压缩
 
     1. 前往 [chrome://extensions/](chrome://extensions/)
 
@@ -37,16 +47,6 @@
     1. 完成
 
         ![完成](./src/tutorial/4.jpg)
-
-* 使用 UserScript（[GreasyFork 教学](https://greasyfork.org/zh-CN)）
-
-    1. 安装使用者脚本管理器
-
-    1. 下载使用者脚本：
-
-        * [Greasy Fork](https://greasyfork.org/zh-CN/scripts/447599)
-
-        * [此储存库](./yt-live-chat-emoji-copy-tool.user.js)
 
 ## 授权
 
