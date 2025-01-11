@@ -1,0 +1,21 @@
+{
+    "name": "__MSG_appName__",
+    "action": {},
+    "manifest_version": 3,
+    "version": "0.3",
+    "description": "__MSG_appDesc__",
+    "default_locale": "en",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.youtube.com/*",
+                "https://studio.youtube.com/*"
+            ],
+            "js": [
+                "yt-live-chat-emoji-copy-tool.user.js",
+                "dependencies/*.js"
+            ],
+            "all_frames": true
+        }
+    ]
+}
