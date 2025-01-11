@@ -1,0 +1,49 @@
+name: Create Release with Files
+
+on:
+  push:
+    tags:
+      - 'v*'  # 匹配所有以 v 開頭的 tag
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步驟 1：檢出代碼
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # 步驟 2：獲取上一個 tag https://github.com/WyriHaximus/github-action-get-previous-tag/issues/23#issuecomment-830632004z
+      - name: Get previous tag
+        id: previoustag
+        run: echo "::set-output name=TAGNAME::$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))"
+
+      # 步驟 3：生成 ZIP 檔案
+      - name: Create ZIP file
+        run: |
+          # 建立一個臨時目錄
+          mkdir -p release_files
+          # 複製 _locales 資料夾
+          cp -r _locales release_files/
+          # 讀取 manifest.json，提取 content_scripts 並打包
+          scripts=$(jq -r '.content_scripts[].js[]' manifest.json)
+          for script in $scripts; do
+            cp $script release_files/
+          done
+          # 打包所有檔案為 ZIP
+          cd release_files
+          zip -r "../${{ github.event.repository.name }}.zip" *
+
+      # 步驟 4：創建 Release 並上傳資產
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./yt-live-chat-emoji-copy-tool.user.js
+            ./${{ github.event.repository.name }}.zip
+          name: "YT Live Chat Emoji Copy Tool ${{ github.ref_name }}"
+          body: |
+            **Full Changelog**: https://github.com/${{ github.repository }}/compare/${{ steps.previoustag.outputs.TAGNAME }}...${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
