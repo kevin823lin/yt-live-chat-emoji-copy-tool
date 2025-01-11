@@ -12,8 +12,8 @@
                 "https://studio.youtube.com/*"
             ],
             "js": [
-                "yt-live-chat-emoji-copy-tool.user.js",
-                "dependencies/*.js"
+                "dependencies/lodash.min.js",
+                "yt-live-chat-emoji-copy-tool.user.js"
             ],
             "all_frames": true
         }
