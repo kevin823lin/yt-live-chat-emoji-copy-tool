@@ -42,5 +42,18 @@
 
     1. 安装使用者脚本管理器
 
-    1. 下载或开启「[yt-live-chat-emoji-copy-tool.user.js](https://greasyfork.org/zh-CN/scripts/447599)」
+    1. 下载使用者脚本：
 
+        * [Greasy Fork](https://greasyfork.org/zh-CN/scripts/447599)
+
+        * [此储存库](./yt-live-chat-emoji-copy-tool.user.js)
+
+## 授权
+
+此项目采用 MIT 授权条款 - 详情请参阅 [LICENSE](./LICENSE) 文件。
+
+### 致谢
+
+此项目包含以下来源的代码：
+
+* [Lodash](https://lodash.com/) - 采用 MIT 授权条款。

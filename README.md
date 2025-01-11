@@ -42,4 +42,18 @@ Make YouTube™ Live Chat's emoji can be copied.
 
     1. Install a user script manager
 
-    1. Download or open "[yt-live-chat-emoji-copy-tool.user.js](https://greasyfork.org/en/scripts/447599)"
+    1. Download user script from:
+
+        * [Greasy Fork](https://greasyfork.org/en/scripts/447599)
+
+        * [This Repository](./yt-live-chat-emoji-copy-tool.user.js)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+### Acknowledgements
+
+This project includes code from the following sources:
+
+* [Lodash](https://lodash.com/) - Licensed under the MIT License.
